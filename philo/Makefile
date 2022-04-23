@@ -13,7 +13,7 @@ CFLAGS = -Wall -Wextra -Werror
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(LIBRARY) $(MAIN)
-	$(COMPILER) $(CFLAGS) $(MAIN) $(LIBRARY) -o $(NAME)
+	$(COMPILER) $(CFLAGS) $^ -o $@
 
 %.o: %.c
 	$(COMPILER) $(CFLAGS) -c $^
@@ -22,7 +22,7 @@ $(LIBRARY): $(OBJS)
 		ar rcs $(LIBRARY) $(OBJS)
 
 clean:
-	rm $(OBJS) $(LIBRARY)
+	rm -rf $(OBJS) $(LIBRARY)
 
 all: $(NAME)
 
