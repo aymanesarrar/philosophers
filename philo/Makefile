@@ -1,5 +1,7 @@
 LIBRARY = library.a
 
+COMPILER = gcc
+
 SRCS = utils.c
 
 MAIN = main.c
@@ -8,13 +10,13 @@ NAME = philo
 
 CFLAGS = -Wall -Wextra -Werror
 
-OBJS = utils.o
+OBJS = $(SRCS:.c=.o)
 
-$(NAME): library.a main.c
-	gcc $(CFLAGS) $(MAIN) $(LIBRARY) -o $(NAME)
+$(NAME): $(LIBRARY) $(MAIN)
+	$(COMPILER) $(CFLAGS) $(MAIN) $(LIBRARY) -o $(NAME)
 
-$(OBJS): $(SRCS)
-	gcc $(CFLAGS) -c $(SRCS)	
+%.o: %.c
+	$(COMPILER) $(CFLAGS) -c $^
 
 $(LIBRARY): $(OBJS)		
 		ar rcs $(LIBRARY) $(OBJS)
