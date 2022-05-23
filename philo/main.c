@@ -28,9 +28,21 @@ int	check_arguments(char **av)
 	return (1);
 }
 
+void	init(int ac, char **av)
+{
+	t_args arguments;
+
+	arguments.nb_philo = ft_positive_atoi(av[1]);
+	arguments.time_to_die = ft_positive_atoi(av[2]);
+	arguments.time_to_eat = ft_positive_atoi(av[3]);
+	arguments.time_to_sleep = ft_positive_atoi(av[4]);
+	if (av[ac])
+		arguments.nb_must_eat = ft_positive_atoi(av[5]);
+	
+}
+
 int main(int ac, char **av)
 {
-	//t_args	arguments;
 	if (ac == 5 || ac == 6)
 	{
 		if (!check_arguments(av))
@@ -38,6 +50,7 @@ int main(int ac, char **av)
 			printf("invalid arguments\n");
 			return (1);
 		} 
+		init(ac, av);
 	}
 	else
 		printf("invalid arguments\n");

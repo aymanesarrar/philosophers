@@ -1,5 +1,11 @@
 #include "./philo.h"
 
+void	ft_error(void)
+{
+	perror("Error\n");
+	exit(0);
+}
+
 long	ft_positive_atoi(char *str)
 {
 	long	nb;
@@ -13,4 +19,26 @@ long	ft_positive_atoi(char *str)
 		index++;
 	}
 	return (nb);
+}
+
+long int	current_time(void)
+{
+	long int	time;
+	struct timeval	current_time;
+
+	time = 0;
+	if (gettimeofday(&current_time, NULL) == -1)
+		ft_error();
+	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
+	return (time);
+}
+
+void	ft_usleep(long int time_in_ms)
+{
+	long int	start_time;
+
+	start_time = 0;
+	start_time = current_time();
+	while ((current_time() - start_time) < time_in_ms)
+		usleep(time_in_ms / 10);
 }

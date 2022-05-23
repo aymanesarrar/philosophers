@@ -1,5 +1,3 @@
-LIBRARY = library.a
-
 COMPILER = gcc
 
 SRCS = utils.c
@@ -10,19 +8,14 @@ NAME = philo
 
 CFLAGS = -Wall -Wextra -Werror
 
-OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(LIBRARY) $(MAIN)
+$(NAME): $(MAIN) $(SRCS)
+	@echo "\033[32mCompiling ...\033[0m"
 	$(COMPILER) $(CFLAGS) $^ -o $@
 
-%.o: %.c
-	$(COMPILER) $(CFLAGS) -c $^
-
-$(LIBRARY): $(OBJS)		
-		ar rcs $(LIBRARY) $(OBJS)
-
 clean:
-	rm -rf $(OBJS) $(LIBRARY)
+	@echo "\033[0;31mCleaning ...\033[0m"
+	rm -rf $(NAME)
 
 all: $(NAME)
 
