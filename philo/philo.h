@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <sys/time.h>
 
 typedef struct	s_args
 {
@@ -16,5 +17,8 @@ typedef struct	s_args
 int check_number(char *str);
 int check_arguments(char **av);
 long ft_positive_atoi(char *str);
+void	ft_usleep(long int time_in_ms);
+long int	current_time(void);
+void	ft_error(void);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/23 18:14:32 by aysarrar          #+#    #+#             */
+/*   Updated: 2022/05/23 18:52:56 by aysarrar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 void	ft_error(void)
@@ -23,7 +35,7 @@ long	ft_positive_atoi(char *str)
 
 long int	current_time(void)
 {
-	long int	time;
+	long int		time;
 	struct timeval	current_time;
 
 	time = 0;

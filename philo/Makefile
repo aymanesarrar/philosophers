@@ -21,6 +21,9 @@ all: $(NAME)
 
 .PHONY: clean fclean re all
 
+norm:
+	norminette $(SRCS)
+
 fclean: clean
 	rm -rf $(NAME)
 

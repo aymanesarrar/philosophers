@@ -38,6 +38,7 @@ void	init(int ac, char **av)
 	arguments.time_to_sleep = ft_positive_atoi(av[4]);
 	if (av[ac])
 		arguments.nb_must_eat = ft_positive_atoi(av[5]);
+	ft_usleep(2000);
 	
 }
 
