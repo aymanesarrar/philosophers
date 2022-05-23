@@ -22,7 +22,7 @@ all: $(NAME)
 .PHONY: clean fclean re all
 
 norm:
-	norminette $(SRCS)
+	norminette $(SRCS) philo.h
 
 fclean: clean
 	rm -rf $(NAME)

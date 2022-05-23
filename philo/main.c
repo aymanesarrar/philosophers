@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/23 20:23:38 by aysarrar          #+#    #+#             */
+/*   Updated: 2022/05/23 21:51:49 by aysarrar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 int	check_number(char *str)
@@ -28,6 +40,27 @@ int	check_arguments(char **av)
 	return (1);
 }
 
+void	*routine()
+{
+	ft_usleep(200);
+	printf("hello from thread\n");
+	return (NULL);
+}
+
+void	create_philosophers(t_args *args)
+{
+	int			index;
+	pthread_t	philo[args->nb_philo];
+	int			thread_return;
+
+	index = 0;
+	while (index < args->nb_philo)
+	{
+		thread_return = pthread_create(&philo[index], NULL, routine, NULL);
+		index++;
+	}
+}
+
 void	init(int ac, char **av)
 {
 	t_args arguments;
@@ -38,8 +71,7 @@ void	init(int ac, char **av)
 	arguments.time_to_sleep = ft_positive_atoi(av[4]);
 	if (av[ac])
 		arguments.nb_must_eat = ft_positive_atoi(av[5]);
-	ft_usleep(2000);
-	
+	create_philosophers(&arguments);	
 }
 
 int main(int ac, char **av)
@@ -47,13 +79,10 @@ int main(int ac, char **av)
 	if (ac == 5 || ac == 6)
 	{
 		if (!check_arguments(av))
-		{
-			printf("invalid arguments\n");
-			return (1);
-		} 
+			ft_error("invalid arguments");
 		init(ac, av);
 	}
 	else
-		printf("invalid arguments\n");
+		ft_error("invalid arguments");
 	return (0);
 }

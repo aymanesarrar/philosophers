@@ -6,15 +6,15 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:14:32 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/23 18:52:56 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:21:58 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
 
-void	ft_error(void)
+void	ft_error(char *str)
 {
-	perror("Error\n");
+	perror(str);
 	exit(0);
 }
 
@@ -40,7 +40,7 @@ long int	current_time(void)
 
 	time = 0;
 	if (gettimeofday(&current_time, NULL) == -1)
-		ft_error();
+		ft_error("Error\n");
 	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
 	return (time);
 }
