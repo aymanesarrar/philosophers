@@ -6,7 +6,7 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:23:38 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/23 21:51:49 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:11:39 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,71 @@ int	check_arguments(char **av)
 	return (1);
 }
 
-void	*routine()
+t_philosopher	*create_node(int	index, t_args *args)
 {
-	ft_usleep(200);
-	printf("hello from thread\n");
-	return (NULL);
+	t_philosopher	*philo;
+
+	philo = malloc(sizeof(t_philosopher));
+	if (!philo)
+		return (NULL);
+	philo->index = index;
+	if (pthread_mutex_init(&philo->fork, NULL))
+		ft_error("Error initializing mutex\n");
+	philo->args = args;
+	philo->next = NULL;
 }
 
-void	create_philosophers(t_args *args)
+void	add_last(t_philosopher **HEAD, t_philosopher *node)
 {
-	int			index;
-	pthread_t	philo[args->nb_philo];
-	int			thread_return;
-
-	index = 0;
-	while (index < args->nb_philo)
+	if (!*HEAD)
 	{
-		thread_return = pthread_create(&philo[index], NULL, routine, NULL);
+		*HEAD = node;
+		return ;
+	}
+	while ((*HEAD)->next)
+		HEAD = (*HEAD)->next;
+	(*HEAD)->next = node;
+}
+
+t_philosopher	*create_list(t_args *args)
+{
+	t_philosopher 	*HEAD;
+	int				index;
+
+	index = 1;
+	while (index <= args->nb_philo)
+	{
+		add_last(&HEAD, create_node(index, args));
 		index++;
 	}
+	return (HEAD);
 }
 
-void	init(int ac, char **av)
+void	*routine(void *args)
+{
+	t_philosopher	*philo;
+
+	philo = (t_philosopher *)args;
+}
+
+int	create_threads(t_args *args)
+{
+	t_philosopher 	*tmp;
+	t_philosopher	*HEAD;
+
+	HEAD = create_list(args);
+	tmp = HEAD;
+	while (tmp->next)
+	{
+		if (pthread_create(&tmp->thread, NULL, routine, tmp))
+			return (0);
+		tmp = tmp->next;
+	}
+	
+}
+
+
+int	init(int ac, char **av)
 {
 	t_args arguments;
 
@@ -71,7 +114,9 @@ void	init(int ac, char **av)
 	arguments.time_to_sleep = ft_positive_atoi(av[4]);
 	if (av[ac])
 		arguments.nb_must_eat = ft_positive_atoi(av[5]);
-	create_philosophers(&arguments);	
+	if (!create_threads(&arguments))
+		return (0);
+	return (1);	
 }
 
 int main(int ac, char **av)
@@ -79,10 +124,11 @@ int main(int ac, char **av)
 	if (ac == 5 || ac == 6)
 	{
 		if (!check_arguments(av))
-			ft_error("invalid arguments");
-		init(ac, av);
+			return (printf("invalid arguments\n"));
+		if (!init(ac, av))
+			return (printf("Error\n"));
 	}
 	else
-		ft_error("invalid arguments");
+		return (printf("invalid arguments\n"));
 	return (0);
 }

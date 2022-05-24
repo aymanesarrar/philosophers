@@ -6,7 +6,7 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:14:32 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/23 21:21:58 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:18:41 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error(char *str)
 {
-	perror(str);
+	printf("%s\n", str);
 	exit(0);
 }
 
