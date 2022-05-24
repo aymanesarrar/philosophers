@@ -6,7 +6,7 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:23:38 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/24 16:11:39 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:32:01 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	create_threads(t_args *args)
 			return (0);
 		tmp = tmp->next;
 	}
-	
+	return (1);
 }
 
 
