@@ -6,7 +6,7 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:17:17 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/24 23:47:35 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/25 11:17:52 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_args
 	int				time_to_sleep;
 	int				nb_must_eat;
 	void			*head;
-	pthread_mutex_t	printf_protexion;
-	pthread_mutex_t	death_protexion;
+	pthread_mutex_t	printf_protection;
+	pthread_mutex_t	death_protection;
 }				t_args;
 
 typedef struct s_philosopher
@@ -36,6 +36,7 @@ typedef struct s_philosopher
 	long int				last_meal;
 	pthread_mutex_t			fork;
 	pthread_t				thread;
+	int						meal;
 	struct s_args			*args;
 	struct s_philosopher	*next;
 }				t_philosopher;
