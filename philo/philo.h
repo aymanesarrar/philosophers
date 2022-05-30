@@ -6,7 +6,7 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:17:17 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/25 11:17:52 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/30 10:58:13 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,19 @@ typedef struct s_philosopher
 	struct s_philosopher	*next;
 }				t_philosopher;
 
-int			check_number(char *str);
-int			check_arguments(char **av);
-long		ft_positive_atoi(char *str);
-void		ft_usleep(long int time_in_ms);
-long int	current_time(void);
-void		ft_error(char *str);
+int				check_number(char *str);
+int				check_arguments(char **av);
+long			ft_positive_atoi(char *str);
+void			ft_usleep(long int time_in_ms);
+long int		current_time(void);
+int				check_loop(t_philosopher *head);
+int				check_meal(t_philosopher *head);
+int				check_death(t_args *args, t_philosopher *head);
+int				printf_pro_max(char *str, t_philosopher *philo);
+void			routine_all(t_philosopher *philo, t_philosopher *next);
+void			*routine(void *ptr);
+t_philosopher	*create_node(int index, t_args *args);
+void			add_last(t_philosopher **HEAD, t_philosopher *node);
+t_philosopher	*create_list(t_args *args);
 
 #endif

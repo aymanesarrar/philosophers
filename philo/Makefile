@@ -1,6 +1,8 @@
 COMPILER = gcc
 
-SRCS = utils.c
+SRCS = utils.c \
+		utils2.c \
+		list.c
 
 MAIN = main.c
 

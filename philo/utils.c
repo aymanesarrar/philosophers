@@ -6,17 +6,11 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 18:14:32 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/24 22:43:15 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/30 10:55:55 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
-
-void	ft_error(char *str)
-{
-	printf("%s\n", str);
-	exit(0);
-}
 
 long	ft_positive_atoi(char *str)
 {
@@ -37,11 +31,14 @@ long int	current_time(void)
 {
 	long int			time;
 	struct timeval		current_time;
-	static	long int	begin_time;
+	static long int		begin_time;
 
 	time = 0;
 	if (gettimeofday(&current_time, NULL) == -1)
-		ft_error("Error\n");
+	{
+		printf("Error\n");
+		return (0);
+	}
 	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
 	if (!begin_time)
 		begin_time = time;
