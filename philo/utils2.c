@@ -6,7 +6,7 @@
 /*   By: aysarrar <aysarrar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:52:31 by aysarrar          #+#    #+#             */
-/*   Updated: 2022/05/30 10:59:36 by aysarrar         ###   ########.fr       */
+/*   Updated: 2022/05/30 12:05:11 by aysarrar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,26 @@ int	check_death(t_args *args, t_philosopher *head)
 void	routine_all(t_philosopher *philo, t_philosopher *next)
 {
 	pthread_mutex_lock(&philo->fork);
+	pthread_mutex_lock(&philo->args->death_protection);
 	printf_pro_max("has taken a fork", philo);
+	pthread_mutex_unlock(&philo->args->death_protection);
 	pthread_mutex_lock(&next->fork);
-	printf_pro_max("has taken a fork", next);
+	pthread_mutex_lock(&philo->args->death_protection);
 	printf_pro_max("is eating", philo);
+	pthread_mutex_unlock(&philo->args->death_protection);
 	if (philo->args->nb_must_eat != 0)
 		philo->meal++;
 	philo->last_meal = current_time();
 	ft_usleep(philo->args->time_to_eat);
 	pthread_mutex_unlock(&philo->fork);
 	pthread_mutex_unlock(&next->fork);
+	pthread_mutex_lock(&philo->args->death_protection);
 	printf_pro_max("is sleeping", philo);
+	pthread_mutex_unlock(&philo->args->death_protection);
 	ft_usleep(philo->args->time_to_sleep);
+	pthread_mutex_lock(&philo->args->death_protection);
 	printf_pro_max("is thinking", philo);
+	pthread_mutex_unlock(&philo->args->death_protection);
 }
 
 void	*routine(void *ptr)
